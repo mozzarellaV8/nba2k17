@@ -49,21 +49,21 @@ Previously, the player received two free throws.
 
 - On the weakside, defenders must remain on the weakside outside the paint unless (i) they are double-teaming the ball, (ii) picking up a free cutter or (iii) closely guarding an offensive player.
 
-#### 2001-02
+## 2001-02
 
 - Illegal defense guidelines will be eliminated in their entirety.
 - A new defensive three-second rule will prohibit a defensive player from remaining in the lane for more than three consecutive seconds without closely guarding an offensive player.
 - The time that a team has to advance the ball past midcourt will be reduced from ten seconds to eight.
 - Brief contact initiated by a defensive player will be allowed if it does not impede the progress of the player with the ball.
 
-#### 2002-03
+## 2002-03
 
 - Use of instant replay to review certain last-second plays at the end of each quarter and overtime periods. Replays will be conducted and processed in two minutes or less by the game officials. Replays are triggered automatically – and not at the discretion of the officials or teams.
 
 - Instant replay will also be used when: (1) A foul for which the resulting free throws could affect the outcome of the game is called with no time remaining on the clock (0:00) at the end of the fourth quarter or any overtime period or (2) A foul is called with no time remaining on the clock (0:00) at the end of the first, second and third quarters.
 In these situations, officials will review instant replay to determine only whether the called foul occurred prior to the expiration of time on the game clock and not whether the call itself was correct.
 
-#### 2003-04
+## 2003-04
 
 - For a 20-Second Timeout, the official shall instruct the timer to record the 20 seconds and to inform him when the time has expired. 
 
@@ -71,11 +71,11 @@ In these situations, officials will review instant replay to determine only whet
 
 - The 24-second clock shall remain the same as when play was interrupted or reset to 5 seconds, whichever is greater, any time on jump balls retained by the offensive team as the result of a held ball caused by the defense.
 
-#### 2004-05
+## 2004-05
 
 - New rules were introduced to curtail hand-checking, clarify blocking fouls and call defensive three seconds to open up the game.
 
-#### 2006-07
+## 2006-07
 
 - The head coach may request a timeout (20-second or full) at any time during a game as long as his team has possession of the ball or there is a suspension of play.
 
@@ -91,13 +91,13 @@ In these situations, officials will review instant replay to determine only whet
 
 - Note: The rules for unsportsmanlike acts (elbow and punching fouls) and flagrant fouls/penalty 2 state the fouled player’s coach selects the replacement free-throw shooter from any eligible player on his team (whether on the playing floor or the bench) and the injured player is permitted to re-enter the game following the free-throw attempts. There is no change to this rule.
 
-#### 2007-08
+## 2007-08
 
-##### 1. Rule 2 Section IV. e - Block/Charge Clarification
+#### 1. Rule 2 Section IV. e - Block/Charge Clarification
 
 If two officials differ on a block/charge foul involving the restricted area and/or lower defensive box, they will conference and share information in an attempt to make the correct call. If no resolution is reached it will be treated as a double foul (See rule 12B VI -f).
 
-##### 2006-2007: Section IV- Different Decisions By Officials
+#### 2006-2007: Section IV- Different Decisions By Officials
 
 a. The crew chief shall have the authority to set aside or question decisions regarding
 a rule interpretation made by either of the other officials.
@@ -126,7 +126,7 @@ go to the scorer's table, for any reason, except during a dead ball.
 	3. Rule 5 Section VII. a - Clarification on Full Timeouts in Last Two Minutes
 	If a team has two (2) or three (3) full timeouts remaining when the fourth period reaches the 2:00 mark, one (1) of the timeouts will be changed to a 20-second timeout and they will retain only one (1) full timeout. Therefore, if a team has not yet used its allotted 20-second timeout for the second half, it shall have two 20-second timeouts at its disposal.
 
-2006-2007: Section VII-Regular Timeout-100/60 Seconds:
+#### 2006-2007: Section VII-Regular Timeout-100/60 Seconds:
 a. Each team is entitled to six (6) charged timeouts during regulation play. Each team is limited to no more than three (3) timeouts in the fourth period and no more than two (2) timeouts in the last two minutes of regulation play. (This is in addition to one 20-second timeout per half.)
 4. Comments on Rules - Notes. - Blood Rule Modification
 A team will not be given an additional 30 seconds should bleeding occur from a wound reopened which is not the result of additional contact.
