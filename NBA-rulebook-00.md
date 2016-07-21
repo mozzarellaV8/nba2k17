@@ -1,6 +1,15 @@
 NBA Rulebook Additions Since 2000
 =================================
 
+- [1999-00](#1999-00)
+- [2000-01](#2000-01)
+- [2001-02](#2001-02)
+- [2002-03](#2002-03)
+- [2003-04](#2003-04)
+- [2004-05](#2004-05)
+- [2006-07](#2006-07)
+- [2007-08](#2007-08)
+
 ## 1999-00
 
 - In the backcourt, there is no contact with hands and forearms by defenders. In the frontcourt, there is no contact with hands and forearms by defenders except below the free throw line extended in which case the defender may only use his forearm. In the post, neither the offensive player nor the defender is allowed to dislodge or displace a player who has legally obtained a position. Defender may not use his forearm, shoulder, hip or hand to reroute or hold-up an offensive player going from point A to point B or one who is attempting to come around a legal screen set by another offensive player. Slowing or impeding the progress of the screener by grabbing, clutching, holding “chucking” or “wrapping up” is prohibited.
