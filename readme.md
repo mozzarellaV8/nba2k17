@@ -12,7 +12,7 @@ Going to be following the steps outlined in this [MIT/EdX](https://www.youtube.c
 
 # the Data
 
-[Basketball-Reference](http://basketball-reference.com) is an amazing resource, but their statistics don't always come ready to plug right into R. For instance, Wins/Losses are in a different table from traditional statistics. On top of that, team records are divided by conference while the trad stats are one table of all 30 teams. So! Because of all this, I ended up copying 3 different CSV for each season from the site - one for team stats, one for opponent stats, and one for the standings. 
+[Basketball-Reference](http://basketball-reference.com) is an amazing resource, but their statistics don't always come ready to plug right into R. For instance, Wins/Losses are in a different table from traditional statistics. On top of that, team records are divided by conference while the trad stats are one table of all 30 teams. So! Because of all this, I ended up downloading 3 different CSV for each season from the site - one for team stats, one for opponent stats, and one for the standings. 
 
 This is not to say anything against Basketball-Reference - but more to point out for a specific analysis within a specific programming language, it won't always be a plug-and-play situation.
 
