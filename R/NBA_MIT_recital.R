@@ -3,7 +3,7 @@
 
 # load data -----------------------------------------------
 
-NBA <- read.csv("data_lecture/NBA_train.csv")
+NBA <- read.csv("~/Documents/Foundations-Linear/NBA/data_lecture/NBA_train.csv")
 NBA_test <- read.csv("data_lecture/NBA_test.csv")
 
 # tear it up ----------------------------------------------
@@ -28,7 +28,7 @@ plot(NBA$PTSdiff, NBA$W,
      main = "NBA: Point Differential ~ Wins, 1980-2011")
 
 # predict regular season wins with Wins ~ Pt Differential
-WinsReg <- lm(W ~ PTSdiff, NBA)
+WinsReg <- lm(W ~ PTSdiff, data = NBA)
 summary(WinsReg)
 
 # Points regression model ---------------------------------
