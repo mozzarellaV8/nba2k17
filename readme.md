@@ -9,6 +9,8 @@ This is a **very** simple linear regression on some _very_ simple data (read: no
 
 Going to be following the steps outlined in this [MIT/EdX](https://www.youtube.com/watch?v=WfaKNYR2vAA) lecture with some possibility for freestyling on the framework if I'm feeling like opening up the statistics book. I know MIT profs have more important things to do than know the difference between _baseball_ and _basketball_, but I still find it funny that this recitation used the two terms interchangeably. 
 
+[Here it is](nba2k17.R), in progress.
+
 
 # the Data
 
@@ -17,6 +19,16 @@ Going to be following the steps outlined in this [MIT/EdX](https://www.youtube.c
 This is not to say anything against Basketball-Reference - but more to point out for a specific analysis within a specific programming language, it won't always be a plug-and-play situation.
 
 The cleaning, binding, and cleaning script is [here](nba2k17-bind.R).
+
+## Exploratory
+
+correlations between variables? added ptsDIFF variable, for point differential...
+
+![corrplot01](plots/nba-corrplot-ptsDIFF-01.png)
+
+...which as Moneyball has proven, is a pretty strong indicator/estimator/predictor of Wins:
+
+![ptDiff02-lm](plots/PtDiff-02-lm.png)
 
 ## since 2000
 
