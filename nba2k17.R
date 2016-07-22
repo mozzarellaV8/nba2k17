@@ -46,9 +46,11 @@ par(family = "Arial Rounded MT Bold")
 corrplot(nba.cor, method = "ellipse", tl.srt = 45, tl.cex = 0.85, mar = c(2, 2, 2, 2),
          title = "Correlation Matrix of Traditional NBA Statistics: 2000-2016")
 
-corrplot(nba.cor, method = "shade", tl.srt = 45, tl.cex = 1, mar = c(2, 2, 2, 2),
+corrplot(nba.cor, method = "shade", tl.srt = 45, tl.cex = 0.85, mar = c(2, 2, 2, 2),
          title = "Correlation Matrix of Traditional NBA Statistics: 2000-2016", 
          addCoef.col = "black", number.cex = 0.65)
+
+
 
       
 
