@@ -6,13 +6,13 @@
 # load data -------------------------------------------------------------------
 
 # test - no need to run
-nba2k11 <- read.csv("data/2k11.csv")
+nba2k11 <- read.csv("data-s/2k11-s.csv")
 # add year
 nba2k11$Year <- 2011
 # add playoff binary (1 = made it; 0 = early summer)
 nba2k11$Playoffs <- ifelse(grepl("\\*", nba2k11$Team), 1, 0)
 
-# bind all the 2000s data into one frame ------------------
+# bind all the 2000s data into one frame --------------------------------------
 
 # directory variables
 dir <- "~/GitHub/nba2k17/data"
@@ -37,6 +37,7 @@ years <- 2000:2016
 nba <- data.frame()
 for (i in 1:length(nbaStats)) {
   temp <- read.csv(nbaStats[i])
+  # add column for year and playoff binary
   temp$Year <- years[i]
   temp$Playoffs <- ifelse(grepl("\\*", temp$Team), 1, 0)
   # take points allowed from opponent data for temp
@@ -48,6 +49,9 @@ for (i in 1:length(nbaStats)) {
   # load all temp results into nba dataframe
   nba <- rbind(nba, temp)
 }
+
+# test
+nba2k11 <- subset(nba, nba$Year == 2011)
 
 # reorder columns
 nba <- nba[c(1, 2, 27, 30, 25, 26, 29, 28, 3:24)]
