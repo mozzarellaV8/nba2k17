@@ -16,7 +16,7 @@ Going to be following the steps outlined in this [MIT/EdX](https://www.youtube.c
 
 This is not to say anything against Basketball-Reference - but more to point out for a specific analysis within a specific programming language, it won't always be a plug-and-play situation.
 
-The cleaning, binding, and cleaning script is [here](nba2k17-clean.R)
+The cleaning, binding, and cleaning script is [here](nba2k17-bind.R)
 
 
 
