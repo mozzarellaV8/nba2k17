@@ -34,6 +34,8 @@ correlations between variables? added ptsDIFF variable, for point differential..
 
 the [NBA Rulebook](NBA-rulebook-00.md) - amendments by year.
 
-It's been said often that the league has gotten 'soft' since the 1990s- meaning, among many things, that defensive rules have changed in favor of higher scoring games. An immediate examples that come to mind are the reinstatement of zone defense (3 second defensive caveat). Others include hand-checking. So the [rulebook amendments](http://www.nba.com/analysis/rules_history.html) since 2000 are here for further research into which intervals in the NBA might've had effects on scoring.
+It's been said often that the league has gotten 'soft' since the 1990s- meaning, among many things, that defensive rules have changed in favor of higher scoring games. An immediate example that comes to mind is the reinstatement of zone defense (3 second defensive caveat). Others include hand-checking. 
+
+So the [rulebook amendments](http://www.nba.com/analysis/rules_history.html) since 2000 are here for further research into which intervals in the NBA might've had effects on scoring.
 
 
