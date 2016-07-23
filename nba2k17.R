@@ -198,5 +198,87 @@ RMSE # 174.6688
 mean(nbaTrain$PTS)
 # 7922.436
 
+# Remove indedpendent variables one by one ------------------------------------
+
+# remove defensive rebounds
+RegSeasonV2 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + STL + BLK,
+                  data = nbaTrain)
+summary(RegSeasonV2)
+# Coefficients:
+# Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept) -118.71595  147.04708  -0.807   0.4199    
+#   x2PA           0.93008    0.03740  24.869  < 2e-16 ***
+#   x3PA           1.26693    0.03253  38.950  < 2e-16 ***
+#   FTA            1.04628    0.04000  26.159  < 2e-16 ***
+#   AST            0.60602    0.06565   9.231  < 2e-16 ***
+#   ORB           -1.17608    0.10786 -10.904  < 2e-16 ***
+#   TOV           -0.45590    0.08957  -5.090 5.21e-07 ***
+#   STL           -0.23544    0.12412  -1.897   0.0585 .  
+#   BLK            0.25990    0.12608   2.061   0.0398 * 
+
+# Multiple R-squared:  0.9018,	Adjusted R-squared:  0.9001 
+# No change on Multple r^2 and a slight improvement in Adjusted r^2
+
+# remove STL
+RegSeasonV3 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + BLK, 
+                  data = nbaTrain)
+summary(RegSeasonV3)
+# Coefficients:
+# Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept) -118.08524  147.45515  -0.801   0.4236    
+#   x2PA           0.92512    0.03741  24.728  < 2e-16 ***
+#   x3PA           1.26041    0.03243  38.860  < 2e-16 ***
+#    FTA            1.04083    0.04000  26.018  < 2e-16 ***
+#    AST            0.57722    0.06405   9.013  < 2e-16 ***
+#    ORB           -1.19650    0.10762 -11.118  < 2e-16 ***
+#    TOV           -0.48669    0.08833  -5.510 5.94e-08 ***
+#    BLK            0.27512    0.12617   2.181   0.0297 *  
+
+# Multiple R-squared:  0.9011,	Adjusted R-squared:  0.8996
+# slight unimprovement; remove BLK from one more model and compare
+
+# remove BLK
+RegSeasonV4 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV,
+                  data = nbaTrain)
+summary(RegSeasonV4)
+# Coefficients:
+# Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept) -78.28950  146.90722  -0.533    0.594    
+#   x2PA          0.92022    0.03749  24.543  < 2e-16 ***
+#   x3PA          1.25065    0.03225  38.776  < 2e-16 ***
+#   FTA           1.04922    0.03998  26.245  < 2e-16 ***
+#   AST           0.60795    0.06273   9.692  < 2e-16 ***
+#   ORB          -1.16450    0.10704 -10.879  < 2e-16 ***
+#   TOV          -0.47907    0.08861  -5.406 1.03e-07 ***
+
+# Multiple R-squared:  0.9001,	Adjusted R-squared:  0.8988
+# slight unimprovement; but all coefficients carry significant weight now.
+# out of curiousity/domain knowledge; would like to remove TOV from the model.
+
+# remove TOV
+RegSeasonV5 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB, data = nbaTrain)
+summary(RegSeasonV5)
+# Multiple R-squared:  0.8938,	Adjusted R-squared:  0.8927 
+# again, slight unimprovement; but slightly more than removing the previous 
+# two variables. Now model consists of all offensive metrics. 
+# Stricly by numbers on r^2 and error, RegSeasonV2 is the best model. 
+# So let's take a look at the sum of squared errors and root mean sq error
+# for RegSeasonV2
+
+SSEv2 <- sum(RegSeasonV2$residuals^2)
+SSEv2
+# [1] 14492365
+
+RMSEv2 <- sqrt(SSEv2/nrow(nbaTrain))
+RMSEv2
+# [1] 174.6718
+
+
+
+
+
+
+
+ 
 
 
