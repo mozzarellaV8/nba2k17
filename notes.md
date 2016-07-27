@@ -71,4 +71,11 @@ Earlier looking at the Wins~Playoffs table we settled on 42 as the number of win
 	ptsDIFF ≥ 42 - 41 / 0.033
 	ptsDIFF ≥ 30.3
 
-So! A team will need to score, on average, 30 more points than they allow in order reach 42 wins, and thus the playoffs. That's a pretty comfortable margin. 
+So! A team will need to score 30 more points than they allow in order reach 42 wins, and thus the playoffs. That's a pretty comfortable margin - until you spread it out over 82 games. Point differential here was calculated using total points scored and total points allowed seaasonally - perhaps it's a better idea to take the average. 
+
+
+
+
+
+
+
