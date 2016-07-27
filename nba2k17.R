@@ -36,6 +36,9 @@ summary(winsPO.model)
 
 # Point Differentials ---------------------------------------------------------
 
+library(ggplot2)
+library(RColorBrewer)
+
 # compute point diffrential
 nba$ptsDIFF <- nba$PTS - nba$oppPTS
 summary(nba$ptsDIFF)
@@ -50,9 +53,6 @@ plot(nba$ptsDIFF, nba$W,
      main = "Point Differential vs. Wins: NBA 2000-2016")
 abline(lm(W ~ ptsDIFF, data = nba), col = "firebrick2", lty = 2)
 # higher positive point differential; higher number of wins
-
-library(ggplot2)
-library(RColorBrewer)
 
 ptDiffPlot <- ggplot(nba, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
   geom_point(size = 4, shape = 17, alpha = 0.99) +
@@ -94,6 +94,7 @@ nbaTest <- nbaTest[c(1:7, 31, 8:30)]
 
 # compute training point differential
 nbaTrain$ptsDIFF <- nbaTrain$PTS - nbaTrain$oppPTS
+nbaTest$ptsDIFF <- nbaTest$PTS - nbaTest$oppPTS
 
 # plot
 trainDiffPlot <- ggplot(nbaTrain, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
@@ -272,13 +273,4 @@ SSEv2
 RMSEv2 <- sqrt(SSEv2/nrow(nbaTrain))
 RMSEv2
 # [1] 174.6718
-
-
-
-
-
-
-
- 
-
 
