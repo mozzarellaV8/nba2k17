@@ -13,7 +13,7 @@ After splitting the data into training (2000-2015) and test (2016) sets, making 
 table(nbaTrain$W, nbaTrain$Playoffs)
 ```
 
-![WinsPlayoffTable](plots/WinsPlayoffTable.png)
+![WinsPlayoffTable](WinsPlayoffTable.png)
 
 **How many points does a team need to win by - on average - to have a strong chance at a W?** 
 
