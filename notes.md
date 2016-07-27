@@ -15,7 +15,7 @@ table(nbaTrain$W, nbaTrain$Playoffs)
 
 ![WinsPlayoffTable](notes/WinsPlayoffTable.png)
 
-It looks like at 41 wins and above, chances that a team will make the playoffs improve dramatically. At 42 wins and above, the number of teams not making the playoffs becomes a distinct minority, and above 48 wins practically guarantees a playoff spot. 
+It looks like at 41 wins and above, chances that a team will make the playoffs improve dramatically. At 42 wins and above, the number of teams not making the playoffs becomes a distinct minority, and above 48 wins practically guarantees a playoff spot. Given this data, it's probably safe to say **42 wins** is the least number of wins a team needs to have a good chance at making the playoffs. 
 
 **How many points does a team need to win by - on average - to have a strong chance at a W?** 
 
@@ -23,15 +23,15 @@ This is the Point Differential (`ptsDIFF`), and it's calculated seasonally from 
 
 	Points Scored minus Points Allowed = Points Differential
 
-So the two questions above break down the prediction method: how many wins does a team need, and how many wins will a team likely get? We can see from the a quick correlation matrix, Wins and Point Differential are pretty highly correlated:
-
-![corrplot](plots/nba-corrplot-ptsDIFF-02.png)
+So the two questions above break down the prediction method: how many wins does a team need, and how many wins will a team likely get? We can see from a quick correlation matrix, Wins and Point Differential are pretty highly correlated:
 
 ``` r
 corrplot(nbaTrain.cor, method = "shade", tl.srt = 45, tl.cex = 0.85, 
          title = "Correlation Matrix of Traditional NBA Statistics: 2000-2015", 
          addCoef.col = "black", number.cex = 0.65, mar = c(2, 2, 2, 2))
 ```
+
+![corrplot](plots/nba-corrplot-ptsDIFF-02.png)
 
 With a correlation coefficient of 0.96, Wins and Point Differential exhibit a near-certain positive linear relationship.
 Other strongly correlated variables are to be expected, such as that between 3P field goals and 3P field goals attempted. 
@@ -51,11 +51,15 @@ summary(RegSeasonW)
 # Multiple R-squared:  0.9221,	Adjusted R-squared:  0.922 
 ```
 
-That's a pretty nice r^2 there. 
+That's a pretty nice r^2 there.
 
+But even better we've got an estimates for the intercept and `ptsDIFF` coefficients to plug into our formula. 
 
-# Sum of Squared Error Calculation
+	intercept = 4.049e+01 = 40.9 -> 41
+	ptsDIFF  = 3.301e-02 = 0.33
 
-``` r
-SSE <- sum()
-```
+Linear Regression equation:
+
+	y = β₀ + β₁𝒙ⁱ + β₂𝑥₂ⁱ + ... + βⱼ𝑥ⱼⁱ + εⁱ
+
+where `y` is the dependent variable, `β` is the coefficient, `𝑥` is the independent variable, and `ε` is the error term.
