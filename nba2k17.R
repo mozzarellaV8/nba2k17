@@ -10,7 +10,7 @@ nba <- read.csv("nba2k17.csv", header = T)
 str(nba)
 summary(nba)
 
-# linear model 01 - wins ~ playoff --------------------------------------------
+# Wins Estimator --------------------------------------------------------------
 # looking at the entire population here
 
 # estimate win-cutoff for playoff eligibility
@@ -36,7 +36,7 @@ nba <- nba[c(1:7, 32, 33, 8:30)]
 # write table of this (possibly) final data
 write.table(nba, file = "nba2k17-Final.csv")
 
-# Point Differential - Plots --------------------------------------------------
+# Plots: Point Differential ---------------------------------------------------
 
 library(ggplot2)
 library(RColorBrewer)
@@ -75,9 +75,11 @@ ptDiffPos <- ggplot(nbaPos, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
 
 ptDiffPos
 
-# Model 02: Points ------------------------------------------------------------
+# Training/Test sets ----------------------------------------------------------
 
-# split the data into test and traning - train 2000-2015, test 2016
+# split the data into test and traning 
+# training: 2000-2015
+# test: 2016
 
 nbaTrain <- subset(nba, nba$Year != 2016)
 nbaTest <- subset(nba, nba$Year == 2016)
@@ -90,7 +92,7 @@ str(nbaTest)
 table(nbaTrain$W, nbaTrain$Playoffs)
 # it would seem that 41 wins is the minimum, and 42 wins more comfortable.
 
-# Model 02: Plot --------------------------------------------------------------
+# Plot: Wins - Point Differential ---------------------------------------------
 
 trainDiffPlot <- ggplot(nbaTrain, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
   geom_point(size = 4, shape = 17, alpha = 0.99) +
@@ -104,7 +106,7 @@ trainDiffPlot <- ggplot(nbaTrain, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
 trainDiffPlot + stat_smooth()
 
 # plot with ols
-trainDiffPlot + geom_smooth(method = lm, linetype = 2, se = F, color = "black") 
+trainDiffPlot + geom_smooth(method = lm, linetype = 2, se = F, color = "black")
 
 # plot w/ annotations
 trainDiffPlot + 
@@ -137,7 +139,7 @@ corrplot(nbaTrain.cor, method = "shade", tl.srt = 45, tl.cex = 0.85,
 # Other highly correlated variables are obvious - e.g. 0.98 for 3 pointers and
 # 3 pointers attempted.
 
-# Model 02: Wins by Point Differential ----------------------------------------
+# Model 01: Wins by Point Differential ----------------------------------------
 
 RegSeasonW <- lm(W ~ ptsDIFF, data = nbaTrain)
 summary(RegSeasonW)
@@ -160,7 +162,7 @@ summary(RegSeasonW)
 ptDiffNeeded <- (42 - 41) / 0.033
 # 30.30
 
-# Model 02B: Wins by Point Differential per Game ------------------------------
+# Model 01B: Wins by Point Differential (per game) ----------------------------
 
 RegSeasonW.G <- lm(W ~ ptsDIFF.G, data = nbaTrain)
 summary(RegSeasonW.G)
@@ -179,11 +181,15 @@ summary(RegSeasonW.G)
 (42 - 40.5) / 2.67
 # 0.5617978
 
-# Model 03: Points by . -------------------------------------------------------
+# This actually is not any more interpretable than the complete season
+# point diff total. 
+
+# Model 02: Points ------------------------------------------------------------
 
 # So point differential almost guarantees wins - or vice versa.
-# Wins are guaranteed by the favorable point differential. 
-# So how do points get generated?
+# Wins are guaranteed by a favorable point differential. 
+# So how do points get generated? 
+# This model takes a look at variables influencing points scored.
 
 # gonna try the kitchen sink first cuz im tired
 RegSeasonPTS <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + DRB +
@@ -239,7 +245,9 @@ mean(nbaTrain$PTS)
 175/7922
 # 0.02209038
 
-# Remove indedpendent variables one by one ------------------------------------
+# lm points V2 ----------------------------------------------------------------
+
+# Remove indedpendent variables one by one
 
 # remove defensive rebounds (DRB) - highest p-value.
 RegSeasonV2 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + STL + BLK,
@@ -270,7 +278,8 @@ RMSE2
 # ever so slightly higher; but really more or less the same.
 
 
-# Model 3.3 ---------------------------
+# lm points V3 ----------------------------------------------------------------
+
 # remove STL
 RegSeasonV3 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + BLK, 
                   data = nbaTrain)
@@ -299,6 +308,9 @@ RMSE3
 # 175.3448
 # it got higher, but is still the same. 
 
+
+# lm points V4 ----------------------------------------------------------------
+
 # remove BLK
 RegSeasonV4 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV,
                   data = nbaTrain)
@@ -326,6 +338,7 @@ RMSE4
 # 176.2352
 # the more variables we take away, the higher the RMSE inches.
 
+# lm points V5 ----------------------------------------------------------------
 
 # remove TOV
 RegSeasonV5 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB, data = nbaTrain)
@@ -357,3 +370,54 @@ RootMeanSqError <- c(RMSE, RMSE2, RMSE3, RMSE4, RMSE5)
 rSquared <- c(0.9018, 0.9018, 0.9011, 0.9001, 0.8938)
 errors <- data.frame(SumSqError = SumSqError, RootMeanSqError = RootMeanSqError,
                      rSquared = rSquared)
+
+# Judging strictly by the numbers, points model V2 might be the best fit. 
+
+# Prediction on Test set ------------------------------------------------------
+
+PointsPrediction <- predict(RegSeasonV2, newdata = nbaTest)
+summary(PointsPrediction)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#   7956    8346    8506    8520    8688    9164 
+
+table(PointsPrediction)
+
+
+# out of sample RSquared
+
+# sum of squared error
+# sum of (difference between prediction and test points squared)
+ssePredict <- sum((PointsPrediction - nbaTest$PTS)^2)
+
+# total sum of squares
+# mean of actual point total minus test point total
+sstPredict <- sum((mean(nbaTrain$PTS) - nbaTest$PTS)^2)
+
+r2 <- 1 - (ssePredict / sstPredict)
+r2
+# 0.8393029 for rSqaured value on this prediction. 
+# still a strong positive linear relationship
+
+rmsePredict <- sqrt(ssePredict/nrow(nbaTest))
+rmsePredict
+# 233.7225
+
+mean(errors$RootMeanSqError)
+# 176.5151
+
+rmsePredict - mean(errors$RootMeanSqError)
+# 57.20739
+
+mean(errors$rSquared)
+# 0.89972
+
+r2 - mean(errors$rSquared)
+# -0.06041706
+
+# So the prediction model on the test set differs by 57 points from 
+# the models run on training data, and the rSquared value drops by 0.06 
+# from the mean of the rSqaured values in the 5 models.
+
+# difference in prediction rSquared and training model rSqaured
+r2 - errors$rSquared[2]
+# -0.06249706
