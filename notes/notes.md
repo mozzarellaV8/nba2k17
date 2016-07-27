@@ -13,7 +13,7 @@ After splitting the data into training (2000-2015) and test (2016) sets, making 
 table(nbaTrain$W, nbaTrain$Playoffs)
 ```
 
-![WinsPlayoffTable](WinsPlayoffTable.png)
+![WinsPlayoffTable](notes/WinsPlayoffTable.png)
 
 It looks like at 41 wins and above, chances that a team will make the playoffs improve dramatically. At 42 wins and above, the number of teams not making the playoffs becomes a distinct minority, and above 48 wins practically guarantees a playoff spot. 
 
