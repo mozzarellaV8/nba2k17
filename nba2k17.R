@@ -34,7 +34,7 @@ summary(winsPO.model)
 
 # 63% accuracy according to multiple R^2: OK. 
 
-# Point Differentials ---------------------------------------------------------
+# Point Differentials - Population --------------------------------------------
 
 library(ggplot2)
 library(RColorBrewer)
@@ -120,6 +120,13 @@ trainDiffPlot +
   annotate("text", x = 820, y = 59, label = "Thunder, 2013",
            family = "Times", size = 4)
 
+# wins~playoffs table
+# get a sense of how many wins are needed 
+# for a good chance of making the playoffs
+table(nbaTrain$W, nbaTrain$Playoffs)
+
+
+
 # Correlation Matrix: ptsDIFF--------------------------------------------------
 
 # plot correlation of all variables, see where things lie.
@@ -137,7 +144,9 @@ corrplot(nbaTrain.cor, method = "shade", tl.srt = 45, tl.cex = 0.85,
          mar = c(2, 2, 2, 2),
          title = "Correlation Matrix of Traditional NBA Statistics: 2000-2015", 
          addCoef.col = "black", number.cex = 0.65)
-# exhibiting 0.96 correlation coefficient - almost certain.
+# Wins and Point Differential exhibiting 0.96 correlation - almost certain.
+# Other highly correlated variables are obvious - e.g. 0.98 for 3 pointers and
+# 3 pointers attempted.
 
 # Model 02: Wins by Point Differential ----------------------------------------
 RegSeasonW <- lm(W ~ ptsDIFF, data = nbaTrain)
