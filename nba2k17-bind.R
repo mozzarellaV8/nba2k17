@@ -3,16 +3,8 @@
 # training on 2010s decade data
 # basketball-reference.com/leagues for season summaries
 
-# load data -------------------------------------------------------------------
-
-# test - no need to run
-nba2k11 <- read.csv("data-s/2k11-s.csv")
-# add year
-nba2k11$Year <- 2011
-# add playoff binary (1 = made it; 0 = early summer)
-nba2k11$Playoffs <- ifelse(grepl("\\*", nba2k11$Team), 1, 0)
-
-# bind all the 2000s data into one frame --------------------------------------
+# load + bind data ------------------------------------------------------------
+# bind all the 2000s statistics into one data frame
 
 # directory variables
 dir <- "~/GitHub/nba2k17/data"
@@ -43,6 +35,7 @@ for (i in 1:length(nbaStats)) {
   # take points allowed from opponent data for temp
   opp <- read.csv(nbaOpp[i])
   temp$oppPTS <- opp$PTS
+  temp$oppPTS.G <- opp$PTS.G
   # take wins from standings data temp
   stand <- read.csv(standings[i])
   temp$Record <- stand$Overall
@@ -54,7 +47,7 @@ for (i in 1:length(nbaStats)) {
 nba2k11 <- subset(nba, nba$Year == 2011)
 
 # reorder columns
-nba <- nba[c(1, 2, 27, 30, 25, 26, 29, 28, 3:24)]
+nba <- nba[c(1, 2, 31, 25, 26, 29, 30, 28, 3:24)]
 nba$Rk <- NULL
 
 # separate Record into W/L columns
