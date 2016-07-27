@@ -18,11 +18,21 @@ table(nbaTrain$W, nbaTrain$Playoffs)
 
 It looks like at 41 wins and above, chances that a team will make the playoffs improve dramatically. At 42 wins and above, the number of teams not making the playoffs becomes a distinct minority, and above 48 wins practically guarantees a playoff spot. Given this data, it's probably safe to say **42 wins** is the least number of wins a team needs to have a good chance at making the playoffs. 
 
-**How many points does a team need to win by - on average - to have a strong chance at a W?** 
+**How many more points does a team need to score over opponent to have a strong chance at a W?** 
 
 This is the Point Differential (`ptsDIFF`), and it's calculated seasonally from each team's point totals. Simple formula: 
 
 	Points Scored minus Points Allowed = Points Differential
+
+or in R:
+
+``` r 
+nba$ptsDIFF <- nba$PTS - nba$oppPTS
+summary(nba$ptsDIFF)
+
+nba$ptsDIFF.G <- nba$PTS.G - nba$oppPTS.G
+summary(nba$ptsDIFF.G)
+```
 
 So the two questions above break down the prediction method: how many wins does a team need, and how many wins will a team likely get? We can see from a quick correlation matrix, Wins and Point Differential are pretty highly correlated:
 
