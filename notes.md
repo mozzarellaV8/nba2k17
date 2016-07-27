@@ -36,7 +36,7 @@ corrplot(nbaTrain.cor, method = "shade", tl.srt = 45, tl.cex = 0.85,
 With a correlation coefficient of 0.96, Wins and Point Differential exhibit a near-certain positive linear relationship.
 Other strongly correlated variables are to be expected, such as that between 3P field goals and 3P field goals attempted. 
 
-# Wins-Point Differential model
+# Wins ~ Point Differential model
 
 To predict the number of points a team will need to win by (on average) to make the playoffs, we'll need to fit a model using Wins and Point Differential so we can make our calculations.
 
