@@ -46,9 +46,8 @@ for (i in 1:length(nbaStats)) {
 # test
 nba2k11 <- subset(nba, nba$Year == 2011)
 
-# reorder columns
-nba <- nba[c(1, 2, 31, 25, 26, 29, 30, 28, 3:24)]
-nba$Rk <- NULL
+# reorder columns & remove Rk
+nba <- nba[c(2, 31, 25, 26, 29, 30, 28, 27, 3:24)]
 
 # separate Record into W/L columns
 library(tidyr)
