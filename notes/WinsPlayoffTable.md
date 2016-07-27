@@ -9,11 +9,17 @@ table(nbaTrain$W, nbaTrain$Playoffs)
 ```
 
 W     0  1
+
 7     1  0
+
 12    1  0
+
 13    1  0
+
 15    5  0
+
 16    1  0
+
 17    7  0
 18    3  0
 19    6  0
