@@ -202,6 +202,7 @@ summary(RegSeasonPTS)
 #   STL           -0.24038    0.13016  -1.847     0.0654 .  
 #   BLK            0.26559    0.13388   1.984     0.0479 *  
 
+# Residual standard error: 176.5 on 465 degrees of freedom
 # Multiple R-squared:  0.9018,	Adjusted R-squared:  0.8999 
 
 # Pretty Good: But let's remove the less significant variables
@@ -210,6 +211,7 @@ summary(RegSeasonPTS)
 # But also think about how these defensive stats contribute to the 
 # offense in indirect ways.
 
+# look at the residuals
 RegSeasonPTS$residuals
 
 # find the sum of squared error
@@ -239,7 +241,7 @@ mean(nbaTrain$PTS)
 
 # Remove indedpendent variables one by one ------------------------------------
 
-# remove defensive rebounds (DRB)
+# remove defensive rebounds (DRB) - highest p-value.
 RegSeasonV2 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + STL + BLK,
                   data = nbaTrain)
 summary(RegSeasonV2)
@@ -286,6 +288,7 @@ summary(RegSeasonV3)
 
 # Multiple R-squared:  0.9011,	Adjusted R-squared:  0.8996
 # slight unimprovement; remove BLK from one more model and compare
+
 
 SSE3 <- sum(RegSeasonV3$residuals^2)
 SSE3
@@ -342,6 +345,15 @@ RMSE5 <- sqrt(SSE5/nrow(nbaTrain))
 RMSE5
 # [1] 181.6549
 
+# Removing the turnovers was one variable too many I think.
+
 # So removing variables one by one steadily increased the SSE and RMSE.
 # What does this mean? 
+# It's good practice to trim the model to be as simple as possible (but no simpler)
 
+# vectors to dataframe of errors
+SumSqError <- c(SSE, SSE2, SSE3, SSE4, SSE5)
+RootMeanSqError <- c(RMSE, RMSE2, RMSE3, RMSE4, RMSE5)
+rSquared <- c(0.9018, 0.9018, 0.9011, 0.9001, 0.8938)
+errors <- data.frame(SumSqError = SumSqError, RootMeanSqError = RootMeanSqError,
+                     rSquared = rSquared)
