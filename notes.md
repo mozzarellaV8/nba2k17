@@ -24,16 +24,6 @@ This is the Point Differential (`ptsDIFF`), and it's calculated seasonally from 
 
 	Points Scored minus Points Allowed = Points Differential
 
-or in R:
-
-``` r 
-nba$ptsDIFF <- nba$PTS - nba$oppPTS
-summary(nba$ptsDIFF)
-
-nba$ptsDIFF.G <- nba$PTS.G - nba$oppPTS.G
-summary(nba$ptsDIFF.G)
-```
-
 So the two questions above break down the prediction method: how many wins does a team need, and how many wins will a team likely get? We can see from a quick correlation matrix, Wins and Point Differential are pretty highly correlated:
 
 ``` r
