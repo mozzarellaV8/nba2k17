@@ -382,8 +382,7 @@ summary(PointsPrediction)
 
 table(PointsPrediction)
 
-
-# out of sample RSquared
+# out of sample RSquared:
 
 # sum of squared error
 # sum of (difference between prediction and test points squared)
@@ -405,12 +404,14 @@ rmsePredict
 mean(errors$RootMeanSqError)
 # 176.5151
 
+# difference in rsme between prediction and mean of training models
 rmsePredict - mean(errors$RootMeanSqError)
 # 57.20739
 
 mean(errors$rSquared)
 # 0.89972
 
+# difference between predicted r^2 and mean of training model r^2
 r2 - mean(errors$rSquared)
 # -0.06041706
 
@@ -422,3 +423,30 @@ r2 - mean(errors$rSquared)
 # difference in prediction rSquared and training model rSqaured
 r2 - errors$rSquared[2]
 # -0.06249706
+
+# Prediction V2 ---------------------------------------------------------------
+
+# try using RegSeasonV4, which let go of all less significant variables 
+# and didn't suffer a large change in error values.
+
+PointsPredictionV2 <- predict(RegSeasonV4, newdata = nbaTest)
+summary(PointsPredictionV2)
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#   7947    8361    8492    8517    8689    9140 
+
+table(PointsPredictionV2)
+
+# sum of squared errors
+ssePredictV2 <- sum((PointsPredictionV2 - nbaTest$PTS)^2)
+ssePredictV2
+# 1704450
+
+# total sum of squares
+sstPredictV2 <- sum((mean(nbaTrain$PTS) - nbaTest$PTS)^2)
+
+# rSquared
+r2v2 <-  1 - (ssePredictV2 / sstPredictV2)
+r2v2
+# 0.832864
+# Not bad - similar to RegSeasonV2's prediction.
+
