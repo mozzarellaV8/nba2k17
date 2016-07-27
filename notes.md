@@ -63,3 +63,12 @@ Linear Regression equation:
 	y = β₀ + β₁𝒙ⁱ + β₂𝑥₂ⁱ + ... + βⱼ𝑥ⱼⁱ + εⁱ
 
 where `y` is the dependent variable, `β` is the coefficient, `𝑥` is the independent variable, and `ε` is the error term.
+
+Earlier looking at the Wins~Playoffs table we settled on 42 as the number of wins a team needs to get to the playoffs. From here we can set that as the dependent variable in an equality and solve for Point Differential. 
+
+	41 + 0.033 * ptsDIFF = W
+	41 + 0.033 * ptsDIFF ≥ 42
+	ptsDIFF ≥ 42 - 41 / 0.033
+	ptsDIFF ≥ 30.3
+
+So! A team will need to score, on average, 30 more points than they allow in order reach 42 wins, and thus the playoffs. That's a pretty comfortable margin. 
