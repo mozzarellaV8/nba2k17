@@ -1,9 +1,10 @@
 # Notes
 
-- [Step by Step](#step-by-step)
+- [First Estimates](#first-estimates)
+- [Wins ~ Point Differential Model](#wins--point-differential-model)
 
 
-# Step by Step
+# First Estimates
 
 **How many regular season wins does an NBA team need to have a strong chance at making the playoffs?**
 
