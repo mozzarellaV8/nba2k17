@@ -11,39 +11,35 @@ str(nba)
 summary(nba)
 
 # linear model 01 - wins ~ playoff --------------------------------------------
+# looking at the entire population here
 
+# estimate win-cutoff for playoff eligibility
 table(nba$W, nba$Playoffs)
 
-# look into why duplicate values show up here
-winsPO <- as.data.frame(table(nba$W, nba$Playoffs))
-colnames(winsPO) <- c("NumWins", "PO", "Frequency")
-winsPO <- winsPO[order(winsPO$Frequency, decreasing = T), ]
-rownames(winsPO) <- NULL
-
-winsPO <- winsPO[!(winsPO$PO == 0 & winsPO$Frequency == 0), ]
-
-# linear regression model: wins ~ playoff berth
-winsPO.model <- lm(W ~ Playoffs, data = nba)
-summary(winsPO.model)
-#   Coefficients:
-#               Estimate Std. Error   t value   Pr(>|t|)    
-#   (Intercept)  329.7983     0.4993   59.68    <2e-16 ***
-#   Playoffs     19.9113      0.6803   29.27    <2e-16 ***
-
-# Multiple R-squared:  0.6301,	Adjusted R-squared:  0.6293 
-
-# 63% accuracy according to multiple R^2: OK. 
-
-# Point Differentials - Population --------------------------------------------
-
-library(ggplot2)
-library(RColorBrewer)
+# Point Differential - Population ---------------------------------------------
 
 # compute point diffrential
 nba$ptsDIFF <- nba$PTS - nba$oppPTS
 summary(nba$ptsDIFF)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #  -945    -248      15       0     271     882 
+
+# compute point differential/game check this
+nba$ptsDIFF.G <- nba$PTS.G - nba$oppPTS.G
+summary(nba$ptsDIFF.G)
+#       Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+#  -13.90000  -3.10000   0.20000   0.00198   3.30000  10.80000
+
+# reorder columns with new variables
+nba <- nba[c(1:7, 32, 33, 8:30)]
+
+# write table of this (possibly) final data
+write.table(nba, file = "nba2k17-Final.csv")
+
+# Point Differential - Plots --------------------------------------------------
+
+library(ggplot2)
+library(RColorBrewer)
 
 # plot point differential against wins
 par(mar = c(6, 6, 6, 6), las = 1, family = "Arial Rounded MT Bold")
@@ -63,9 +59,7 @@ ptDiffPlot <- ggplot(nba, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
        x = "point differential", y = "number of wins", colour = "pt/diff")
 
 ptDiffPlot
-
 ptDiffPlot + geom_smooth(method = lm, linetype = 2, se = F, color = "black")
-
 ptDiffPlot + stat_smooth()
 
 # closer look at positive values for ptsDIFF
@@ -87,16 +81,17 @@ ptDiffPos
 
 nbaTrain <- subset(nba, nba$Year != 2016)
 nbaTest <- subset(nba, nba$Year == 2016)
+str(nbaTrain)
+str(nbaTest)
 
-# reorder columns for ptsDIFF
-nbaTrain <- nbaTrain[c(1:7, 31, 8:30)]
-nbaTest <- nbaTest[c(1:7, 31, 8:30)]
+# wins~playoffs table
+# get a sense of how many wins are needed 
+# for a good chance of making the playoffs
+table(nbaTrain$W, nbaTrain$Playoffs)
+# it would seem that 41 wins is the minimum, and 42 wins more comfortable.
 
-# compute training point differential
-nbaTrain$ptsDIFF <- nbaTrain$PTS - nbaTrain$oppPTS
-nbaTest$ptsDIFF <- nbaTest$PTS - nbaTest$oppPTS
+# Model 02: Plot --------------------------------------------------------------
 
-# plot
 trainDiffPlot <- ggplot(nbaTrain, aes(x = ptsDIFF, y = W, color = ptsDIFF)) +
   geom_point(size = 4, shape = 17, alpha = 0.99) +
   scale_color_continuous(low = "red1", high = "steelblue2") +
@@ -120,14 +115,7 @@ trainDiffPlot +
   annotate("text", x = 820, y = 59, label = "Thunder, 2013",
            family = "Times", size = 4)
 
-# wins~playoffs table
-# get a sense of how many wins are needed 
-# for a good chance of making the playoffs
-table(nbaTrain$W, nbaTrain$Playoffs)
-
-
-
-# Correlation Matrix: ptsDIFF--------------------------------------------------
+# Correlation Matrix: Point Differential --------------------------------------
 
 # plot correlation of all variables, see where things lie.
 library(corrplot)
@@ -144,11 +132,13 @@ corrplot(nbaTrain.cor, method = "shade", tl.srt = 45, tl.cex = 0.85,
          mar = c(2, 2, 2, 2),
          title = "Correlation Matrix of Traditional NBA Statistics: 2000-2015", 
          addCoef.col = "black", number.cex = 0.65)
+
 # Wins and Point Differential exhibiting 0.96 correlation - almost certain.
 # Other highly correlated variables are obvious - e.g. 0.98 for 3 pointers and
 # 3 pointers attempted.
 
 # Model 02: Wins by Point Differential ----------------------------------------
+
 RegSeasonW <- lm(W ~ ptsDIFF, data = nbaTrain)
 summary(RegSeasonW)
 #     Coefficients:
