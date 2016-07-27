@@ -1,7 +1,12 @@
-2000-2015 NBA Team Statistics
+## 2000-2015 NBA Team Statistics
+
+The table reads: 
+
 number of Wins, 0 = early summer, 1 = going for June
 
+``` r
 table(nbaTrain$W, nbaTrain$Playoffs)
+```
 
 W     0  1
 7     1  0
