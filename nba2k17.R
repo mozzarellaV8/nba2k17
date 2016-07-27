@@ -149,11 +149,40 @@ summary(RegSeasonW)
 # Multiple R-squared:  0.9221,	Adjusted R-squared:  0.922 
 
 # Wow OK - just as thought, 92% accuracy in point differential as 
-# predictor of number of wins.
+# predictor of number of wins. Err, pretty linear relationship.
+
+# So given a team needs 42 wins to make the playoffs - what's the minumum
+# total point differential over a season that'll net 42 wins? 
+
+# Plug coefficients into regression formula
+# Set as inequality greater than 42. 
+
+ptDiffNeeded <- (42 - 41) / 0.033
+# 30.30
+
+# Model 02B: Wins by Point Differential per Game ------------------------------
+
+RegSeasonW.G <- lm(W ~ ptsDIFF.G, data = nbaTrain)
+summary(RegSeasonW.G)
+# Coefficients:
+#             Estimate Std. Error   t value   Pr(>|t|)    
+# (Intercept) 40.48589    0.16341    247.75    <2e-16 ***
+# ptsDIFF.G    2.66910    0.03662     72.88    <2e-16 ***
+
+# Residual standard error: 3.561 on 473 degrees of freedom
+# Multiple R-squared:  0.9182,	Adjusted R-squared:  0.9181 
+# F-statistic:  5312 on 1 and 473 DF,  p-value: < 2.2e-16
+
+# Wins = Intercept Coefficient + (ptsDiff.G coefficient * ptsDIFF.G)
+# 42 <= 40.5 + 2.67 * (ptsdf)
+# 42 - 40.5 / 2.67 <= ptsdf  
+(42 - 40.5) / 2.67
+# 0.5617978
 
 # Model 03: Points by . -------------------------------------------------------
 
 # So point differential almost guarantees wins - or vice versa.
+# Wins are guaranteed by the favorable point differential. 
 # So how do points get generated?
 
 # gonna try the kitchen sink first cuz im tired
@@ -181,10 +210,12 @@ summary(RegSeasonPTS)
 # But also think about how these defensive stats contribute to the 
 # offense in indirect ways.
 
+RegSeasonPTS$residuals
+
 # find the sum of squared error
 SSE <- sum(RegSeasonPTS$residuals^2)
 SSE # 14491859
-# pretty damn high.
+# pretty high number - not very interpretable for this situation.
 
 RegSeasonPTS$residuals
 plot(RegSeasonPTS$residuals)
@@ -198,9 +229,17 @@ RMSE # 174.6688
 mean(nbaTrain$PTS)
 # 7922.436
 
+# RMSE feels more interpretable; more of an 'average' of the errors.
+# the NBA mean for points over a season is 7922, so our RMSE is somewhat close;
+# being 175 points off of values in the 7-8 thousands. 
+
+# RMSE/mean points per team per season
+175/7922
+# 0.02209038
+
 # Remove indedpendent variables one by one ------------------------------------
 
-# remove defensive rebounds
+# remove defensive rebounds (DRB)
 RegSeasonV2 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + STL + BLK,
                   data = nbaTrain)
 summary(RegSeasonV2)
@@ -219,23 +258,43 @@ summary(RegSeasonV2)
 # Multiple R-squared:  0.9018,	Adjusted R-squared:  0.9001 
 # No change on Multple r^2 and a slight improvement in Adjusted r^2
 
+SSE2 <- sum(RegSeasonV2$residuals^2)
+SSE2
+# 14492365
+
+RMSE2 <- sqrt(SSE2/nrow(nbaTrain))
+RMSE2
+# 174.6718
+# ever so slightly higher; but really more or less the same.
+
+
+# Model 3.3 ---------------------------
 # remove STL
 RegSeasonV3 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV + BLK, 
                   data = nbaTrain)
 summary(RegSeasonV3)
 # Coefficients:
-# Estimate Std. Error t value Pr(>|t|)    
-#   (Intercept) -118.08524  147.45515  -0.801   0.4236    
-#   x2PA           0.92512    0.03741  24.728  < 2e-16 ***
-#   x3PA           1.26041    0.03243  38.860  < 2e-16 ***
-#    FTA            1.04083    0.04000  26.018  < 2e-16 ***
-#    AST            0.57722    0.06405   9.013  < 2e-16 ***
-#    ORB           -1.19650    0.10762 -11.118  < 2e-16 ***
-#    TOV           -0.48669    0.08833  -5.510 5.94e-08 ***
-#    BLK            0.27512    0.12617   2.181   0.0297 *  
+#                   Estimate Std. Error   t value Pr(>|t|)    
+#     (Intercept) -118.08524 147.45515   -0.801   0.4236    
+#     x2PA           0.92512   0.03741   24.728  < 2e-16 ***
+#     x3PA           1.26041   0.03243   38.860  < 2e-16 ***
+#      FTA           1.04083   0.04000   26.018  < 2e-16 ***
+#      AST           0.57722   0.06405    9.013  < 2e-16 ***
+#      ORB          -1.19650   0.10762  -11.118  < 2e-16 ***
+#      TOV          -0.48669   0.08833   -5.510 5.94e-08 ***
+#      BLK           0.27512   0.12617    2.181   0.0297 *  
 
 # Multiple R-squared:  0.9011,	Adjusted R-squared:  0.8996
 # slight unimprovement; remove BLK from one more model and compare
+
+SSE3 <- sum(RegSeasonV3$residuals^2)
+SSE3
+# 14604259
+
+RMSE3 <- sqrt(SSE3/nrow(nbaTrain))
+RMSE3
+# 175.3448
+# it got higher, but is still the same. 
 
 # remove BLK
 RegSeasonV4 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB + TOV,
@@ -255,6 +314,16 @@ summary(RegSeasonV4)
 # slight unimprovement; but all coefficients carry significant weight now.
 # out of curiousity/domain knowledge; would like to remove TOV from the model.
 
+SSE4 <- sum(RegSeasonV4$residuals^2)
+SSE4
+# 14752957
+
+RMSE4 <- sqrt(SSE4/nrow(nbaTrain))
+RMSE4
+# 176.2352
+# the more variables we take away, the higher the RMSE inches.
+
+
 # remove TOV
 RegSeasonV5 <- lm(PTS ~ x2PA + x3PA + FTA + AST + ORB, data = nbaTrain)
 summary(RegSeasonV5)
@@ -265,11 +334,14 @@ summary(RegSeasonV5)
 # So let's take a look at the sum of squared errors and root mean sq error
 # for RegSeasonV2
 
-SSEv2 <- sum(RegSeasonV2$residuals^2)
-SSEv2
-# [1] 14492365
+SSE5 <- sum(RegSeasonV5$residuals^2)
+SSE5
+# [1] 15674293
 
-RMSEv2 <- sqrt(SSEv2/nrow(nbaTrain))
-RMSEv2
-# [1] 174.6718
+RMSE5 <- sqrt(SSE5/nrow(nbaTrain))
+RMSE5
+# [1] 181.6549
+
+# So removing variables one by one steadily increased the SSE and RMSE.
+# What does this mean? 
 
