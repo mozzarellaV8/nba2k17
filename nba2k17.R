@@ -416,7 +416,8 @@ r2 - mean(errors$rSquared)
 
 # So the prediction model on the test set differs by 57 points from 
 # the models run on training data, and the rSquared value drops by 0.06 
-# from the mean of the rSqaured values in the 5 models.
+# from the mean of the rSqaured values in the 5 models. Perhaps using the
+# V2 model resulted in ovefitting from trying to reduce the error.
 
 # difference in prediction rSquared and training model rSqaured
 r2 - errors$rSquared[2]
