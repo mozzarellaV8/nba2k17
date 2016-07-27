@@ -74,6 +74,12 @@ Earlier looking at the Wins~Playoffs table we settled on 42 as the number of win
 
 So! A team will need to score 30 more points than they allow in order reach 42 wins, and thus the playoffs. That's a pretty comfortable margin - until you spread it out over 82 games. Point differential here was calculated using total points scored and total points allowed seaasonally - perhaps it's a better idea to take the average. 
 
+# Table of Errors
+
+Five models later, with a single variable being pared from each one, we come to this table of errors:
+
+![errorDF](plots/errorsDF.png)
+
 
 
 
