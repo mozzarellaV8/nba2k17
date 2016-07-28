@@ -450,3 +450,5 @@ r2v2
 # 0.832864
 # Not bad - similar to RegSeasonV2's prediction.
 
+par(mfrow = c(2, 2), mar = c(6, 6, 6, 6))
+plot(RegSeasonV4)
