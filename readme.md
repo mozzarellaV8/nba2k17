@@ -3,6 +3,13 @@ NBA 2k17
 
 _student work in R_
 
+# The Playoff Question
+
+1. How many wins does a team need in order to make the playoffs? 
+2. How many points does a team need to win by (point differential) in order to reach the number of wins established in the first question?
+
+# Linear Regression
+
 - [the code](nba2k17.R), in progress. (need prediction on test data after choosing model)
 - [notes](notes.md) in detail for reference. 
 
