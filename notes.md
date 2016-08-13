@@ -80,6 +80,10 @@ Five models later, with a single variable being pared from each one, we come to 
 
 ![errorDF](plots/errorsDF.png)
 
+Initially I'd been battling a tug-of-war between removing variables for a more lightweight model and obsessing over p-values, rSquared, SSE, and RSME. At the end of the day, these 5 models are basically the same - less than a tenth of difference in rSquared value. In this case I might go with the lightest model in hopes that it generalizes well - but will have to see after cross validation.
+
+# k-fold Cross Validation
+
 
 
 
