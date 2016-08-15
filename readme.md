@@ -8,6 +8,10 @@ _student work in R_
 1. How many wins does a team need in order to make the playoffs? 
 2. How many points does a team need to win by (point differential) in order to reach the number of wins established in the first question?
 
+Looking at data from 2000-2016, the low cutoff for Wins needed to make the playoffs is 41. At this cutoff, things are still competetitive. Above 47 wins is a near guaranteed playoff spot - only twice in 16 years has a team won 47 or more games and not made the playoffs. I'd have to check again but I bet they were Western Conference. 
+
+But using 41 wins as the playoff cutoff - it seems that a team that can achieve a point differential in the range of +175-182 will have a strong chance at making the playoffs. Over 82 games, this translates to a team winning by 2 or more points per game. Of course not every game is decided by a single basket margin - and there will be a distribution of wins and losses. In a 41 Win model, losing by no more than 4 points and winning by 4 points or more is the most desirable outcome.
+
 # Linear Regression
 
 - [the code](nba2k17.R), in progress. (need prediction on test data after choosing model)
